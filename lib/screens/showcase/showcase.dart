@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:hci_final_project/widget_view.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class Showcase extends StatefulWidget {
   @override
@@ -11,6 +12,10 @@ class Showcase extends StatefulWidget {
 class ShowcaseState extends State<Showcase> {
   @override
   Widget build(BuildContext context) => ShowcaseView(this);
+
+  YoutubePlayerController controller = new YoutubePlayerController(
+    initialVideoId: "dQw4w9WgXcQ",
+  );
 }
 
 class ShowcaseView extends WidgetView<Showcase, ShowcaseState> {
@@ -23,7 +28,6 @@ class ShowcaseView extends WidgetView<Showcase, ShowcaseState> {
     );
     Size size = MediaQuery.of(content).size;
     return Scaffold(
-      appBar: AppBar(),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Row(
@@ -60,6 +64,10 @@ class ShowcaseView extends WidgetView<Showcase, ShowcaseState> {
                             decoration: BoxDecoration(
                               border: Border.all(width: 1),
                             ),
+                            child: YoutubePlayerIFrame(
+                              controller: state.controller,
+                              //onReady: () { state.controller.addListener(listener)},
+                            ),
                           ),
                         ),
                         Padding(
@@ -75,10 +83,32 @@ class ShowcaseView extends WidgetView<Showcase, ShowcaseState> {
                     padding: EdgeInsets.all(20),
                     child: Align(
                       alignment: Alignment.bottomCenter,
-                      child: FlatButton(
-                        onPressed: () => {},
-                        child: Text("Placeholder"),
-                        color: Colors.black,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.arrow_left,
+                              size: 20,
+                            ),
+                            onPressed: () => {},
+                            iconSize: 20,
+                          ),
+                          Icon(Icons.circle),
+                          Icon(Icons.circle),
+                          Icon(Icons.circle),
+                          Icon(Icons.circle),
+                          Icon(Icons.circle),
+                          Icon(Icons.circle),
+                          IconButton(
+                            icon: Icon(
+                              Icons.arrow_right,
+                              size: 20,
+                            ),
+                            onPressed: () => {},
+                            iconSize: 20,
+                          ),
+                        ],
                       ),
                     ),
                   ),
