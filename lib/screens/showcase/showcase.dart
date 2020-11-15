@@ -18,30 +18,41 @@ class ShowcaseView extends WidgetView<Showcase, ShowcaseState> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ExpandableContainer(
-            child: Text("Test Text"),
-            expandedWidth: .20,
-            headerCollapsedIcon: Icon(Icons.arrow_forward_rounded),
-            headerExpandedIcon: Icon(Icons.arrow_back_rounded),
-            headerText: Text("Evaluation"),
-            textDirection: TextDirection.ltr,
-          ),
-          VideoPlayer(),
-          ExpandableContainer(
-            child: Rankings(),
-            expandedWidth: .20,
-            headerCollapsedIcon: Icon(Icons.arrow_back_rounded),
-            headerExpandedIcon: Icon(Icons.arrow_forward_rounded),
-            headerText: Text("Rankings"),
-            textDirection: TextDirection.rtl,
-          ),
-        ],
+      primary: true,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 1,
+        title: Text(
+          "CCSC Student Showcase",
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ExpandableContainer(
+              child: Text("Test Text"),
+              expandedWidth: .20,
+              headerCollapsedIcon: Icon(Icons.arrow_forward_rounded),
+              headerExpandedIcon: Icon(Icons.arrow_back_rounded),
+              headerText: Text("Evaluation"),
+              textDirection: TextDirection.ltr,
+            ),
+            VideoPlayer(),
+            ExpandableContainer(
+              child: Rankings(),
+              expandedWidth: .20,
+              headerCollapsedIcon: Icon(Icons.arrow_back_rounded),
+              headerExpandedIcon: Icon(Icons.arrow_forward_rounded),
+              headerText: Text("Rankings"),
+              textDirection: TextDirection.rtl,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -210,7 +221,7 @@ class ExpandableContainerState extends State<ExpandableContainer>
 
   @override
   void initState() {
-    expanded = false;
+    expanded = true;
     super.initState();
   }
 
@@ -261,9 +272,7 @@ class ExpandableContainerView
       vsync: state,
       curve: Curves.easeInOut,
       child: Container(
-        width: state.expanded
-            ? (size.width * state.expandedWidth)
-            : size.width * .10,
+        width: state.expanded ? (size.width * state.expandedWidth) : null,
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
@@ -301,36 +310,65 @@ class VideoPlayerView extends WidgetView<VideoPlayer, VideoPlayerState> {
   Widget build(BuildContext content) {
     Size size = MediaQuery.of(content).size;
 
+    final divider = Divider(
+      color: Colors.black38,
+    );
+
     final header = Wrap(
       clipBehavior: Clip.antiAlias,
       children: [
         Text(
           "Test Title",
           style: TextStyle(
-            fontSize: 48,
+            fontSize: 36,
             fontWeight: FontWeight.bold,
           ),
         ),
       ],
     );
 
-    final text = Wrap(
-      clipBehavior: Clip.antiAlias,
-      children: [
-        Text(
-          "Summary",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+    final text = Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: Wrap(
+          clipBehavior: Clip.antiAlias,
+          children: [
+            Text(
+              "Summary",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            ),
+            divider,
+            Text(
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer scelerisque nisl vel est congue hendrerit. Mauris facilisis facilisis urna id placerat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam tristique non arcu ut tincidunt. Proin convallis purus at leo lacinia lobortis. Fusce et sem vitae diam cursus rutrum. Donec accumsan sollicitudin condimentum. Nulla ipsum ante, fermentum ut sem vitae, sodales rhoncus arcu. Vestibulum eget nisl tempor, pellentesque ipsum vitae, mollis massa. Proin porttitor nunc et iaculis suscipit. Sed nec arcu nec ligula posuere scelerisque. Suspendisse vitae venenatis lectus. Vestibulum in dui eget erat dictum mollis sed laoreet velit. Vivamus id consectetur nisl. Aliquam tristique augue feugiat mauris pharetra dictum.\n\nSed id tristique nunc. Pellentesque sed interdum eros, tempus ullamcorper lacus. Aenean porttitor vel ligula sit amet consectetur. Aenean congue tincidunt neque, ut porttitor lorem volutpat ac. Sed tristique nibh leo, quis aliquam sem venenatis in. Etiam in mi mauris. Quisque volutpat lectus sit amet erat mollis facilisis. Integer pellentesque quam in tortor dictum viverra. In vulputate dui nisi, a elementum odio vestibulum eu. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse non justo hendrerit, rutrum dui luctus, blandit enim. Praesent tempor tristique lacinia. Pellentesque porta urna neque, non vulputate massa porta non. Phasellus sit amet purus sed dolor placerat mattis.\n\nDonec mattis, diam a egestas pellentesque, turpis ligula commodo tellus, nec rhoncus tellus nulla in dolor. Phasellus efficitur efficitur sagittis. Nulla iaculis tortor at magna efficitur, quis sodales ligula laoreet. Praesent ullamcorper dui in eros elementum, sed suscipit quam fermentum. Nulla id diam eu felis egestas mollis. Curabitur volutpat justo sem. Morbi eget ligula eget velit molestie tristique. Cras lacus nisl, venenatis ut magna vel, ornare pellentesque arcu.\n\nVivamus suscipit ipsum urna, sed mattis risus fringilla a. Suspendisse elementum risus sit amet pharetra malesuada. Nullam ac odio consectetur, fringilla orci dictum, semper augue. Suspendisse interdum lacinia sollicitudin. Vestibulum feugiat elementum orci convallis congue. Donec dolor neque, ullamcorper sed turpis at, tempor consectetur quam. Mauris nisl nisl, venenatis quis tellus non, malesuada elementum ipsum. Morbi lacus est, sollicitudin eget mauris eget, auctor feugiat nisi. Nulla facilisi. Aenean arcu enim, euismod et velit nec, venenatis imperdiet massa. Donec bibendum tellus semper lacinia laoreet. Cras aliquam velit justo, id mollis tortor malesuada cursus.\n\nPraesent venenatis sagittis tincidunt. Suspendisse placerat a massa at placerat. Curabitur id dui congue, sodales turpis vel, accumsan nisl. Ut in nulla nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ut diam ultrices felis varius efficitur. Vivamus fermentum nunc quis porttitor vestibulum. Suspendisse auctor, lectus nec iaculis scelerisque, velit diam venenatis purus, nec congue mi risus euismod lectus. Maecenas rutrum justo ac quam finibus pharetra.",
+              style: TextStyle(fontSize: 18),
+            ),
+          ],
         ),
-        Text(
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer scelerisque nisl vel est congue hendrerit. Mauris facilisis facilisis urna id placerat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam tristique non arcu ut tincidunt. Proin convallis purus at leo lacinia lobortis. Fusce et sem vitae diam cursus rutrum. Donec accumsan sollicitudin condimentum. Nulla ipsum ante, fermentum ut sem vitae, sodales rhoncus arcu. Vestibulum eget nisl tempor, pellentesque ipsum vitae, mollis massa. Proin porttitor nunc et iaculis suscipit. Sed nec arcu nec ligula posuere scelerisque. Suspendisse vitae venenatis lectus. Vestibulum in dui eget erat dictum mollis sed laoreet velit. Vivamus id consectetur nisl. Aliquam tristique augue feugiat mauris pharetra dictum.\n\nSed id tristique nunc. Pellentesque sed interdum eros, tempus ullamcorper lacus. Aenean porttitor vel ligula sit amet consectetur. Aenean congue tincidunt neque, ut porttitor lorem volutpat ac. Sed tristique nibh leo, quis aliquam sem venenatis in. Etiam in mi mauris. Quisque volutpat lectus sit amet erat mollis facilisis. Integer pellentesque quam in tortor dictum viverra. In vulputate dui nisi, a elementum odio vestibulum eu. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse non justo hendrerit, rutrum dui luctus, blandit enim. Praesent tempor tristique lacinia. Pellentesque porta urna neque, non vulputate massa porta non. Phasellus sit amet purus sed dolor placerat mattis.\n\nDonec mattis, diam a egestas pellentesque, turpis ligula commodo tellus, nec rhoncus tellus nulla in dolor. Phasellus efficitur efficitur sagittis. Nulla iaculis tortor at magna efficitur, quis sodales ligula laoreet. Praesent ullamcorper dui in eros elementum, sed suscipit quam fermentum. Nulla id diam eu felis egestas mollis. Curabitur volutpat justo sem. Morbi eget ligula eget velit molestie tristique. Cras lacus nisl, venenatis ut magna vel, ornare pellentesque arcu.\n\nVivamus suscipit ipsum urna, sed mattis risus fringilla a. Suspendisse elementum risus sit amet pharetra malesuada. Nullam ac odio consectetur, fringilla orci dictum, semper augue. Suspendisse interdum lacinia sollicitudin. Vestibulum feugiat elementum orci convallis congue. Donec dolor neque, ullamcorper sed turpis at, tempor consectetur quam. Mauris nisl nisl, venenatis quis tellus non, malesuada elementum ipsum. Morbi lacus est, sollicitudin eget mauris eget, auctor feugiat nisi. Nulla facilisi. Aenean arcu enim, euismod et velit nec, venenatis imperdiet massa. Donec bibendum tellus semper lacinia laoreet. Cras aliquam velit justo, id mollis tortor malesuada cursus.\n\nPraesent venenatis sagittis tincidunt. Suspendisse placerat a massa at placerat. Curabitur id dui congue, sodales turpis vel, accumsan nisl. Ut in nulla nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ut diam ultrices felis varius efficitur. Vivamus fermentum nunc quis porttitor vestibulum. Suspendisse auctor, lectus nec iaculis scelerisque, velit diam venenatis purus, nec congue mi risus euismod lectus. Maecenas rutrum justo ac quam finibus pharetra.",
-        ),
-      ],
+      ),
     );
 
-    final videoPlayer = Container(
-      height: size.height * .6,
-      child: YoutubePlayerIFrame(
-        controller: state.controller,
+    final videoPlayer = AspectRatio(
+      aspectRatio: 16 / 9,
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: YoutubePlayerIFrame(
+          controller: state.controller,
+        ),
+      ),
+    );
+
+    final videoPlayerCard = Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(20, 20, 20, 50),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            header,
+            videoPlayer,
+          ],
+        ),
       ),
     );
 
@@ -339,17 +377,20 @@ class VideoPlayerView extends WidgetView<VideoPlayer, VideoPlayerState> {
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
           border: Border.all(
-            width: 2,
+            width: 1,
+            color: Colors.black12,
           ),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: ListView(
-          padding: EdgeInsets.symmetric(vertical: 20),
+          shrinkWrap: true,
+          padding: EdgeInsets.all(20),
           physics: BouncingScrollPhysics(),
           children: [
             ListBody(
               children: [
-                header,
-                videoPlayer,
+                videoPlayerCard,
+                divider,
                 text,
               ],
             ),
