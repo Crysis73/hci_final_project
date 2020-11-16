@@ -14,7 +14,7 @@ jobs:
 
       - uses: subosito/flutter-action@v1
         with:
-          version: '12.23.x'
+          flutter-version: '12.23.x'
           channel: 'beta' # Required for web
 
       - name: Enable Flutter Web
